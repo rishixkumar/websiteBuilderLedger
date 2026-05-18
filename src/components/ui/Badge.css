@@ -1,0 +1,31 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.badge--default {
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.badge--stage {
+  background: color-mix(in srgb, var(--badge-color, var(--accent)) 20%, transparent);
+  color: var(--badge-color, var(--accent));
+  border: 1px solid color-mix(in srgb, var(--badge-color, var(--accent)) 35%, transparent);
+}
+
+.badge--warning {
+  background: var(--danger-muted);
+  color: var(--danger);
+}
+
+.badge--accent {
+  background: var(--accent-muted);
+  color: var(--accent);
+}

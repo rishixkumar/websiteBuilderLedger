@@ -1,0 +1,120 @@
+.settings {
+  overflow-y: auto;
+  padding: 1.25rem;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+}
+
+.settings__header {
+  margin-bottom: 2rem;
+}
+
+.settings__header h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.settings__header p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.settings__section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings__section h2 {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+
+.settings__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.settings__section-head h2 {
+  margin: 0;
+}
+
+.settings__theme {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.settings__hint {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin: 0 0 0.75rem;
+}
+
+.settings__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.settings-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.settings-list__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.settings-list__item input[type='text'],
+.settings-list__item input:not([type]),
+.settings-list__item select {
+  flex: 1;
+  min-width: 0;
+}
+
+.settings-list__order {
+  width: 56px !important;
+  flex: none !important;
+}
+
+.settings-list__remove {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.35rem;
+}
+
+.settings-list__remove:hover {
+  color: var(--danger);
+}
+
+.settings-list__item--field {
+  flex-wrap: wrap;
+}
+
+.settings-list__pin {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.settings-list__pin input {
+  width: auto;
+}
+
+.settings__section--danger h2 {
+  color: var(--danger);
+}
