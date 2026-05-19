@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { Sparkles, PenLine } from 'lucide-react';
+import { Sparkles, PenLine, Keyboard } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { Sidebar } from './Sidebar';
@@ -9,7 +9,7 @@ import { Toast } from '../ui/Toast';
 import { Button } from '../ui/Button';
 import './AppShell.css';
 
-export function AppShell({ children, onAddClient, onAddClientManual }) {
+export function AppShell({ children, onAddClient, onAddClientManual, onShowShortcuts }) {
   const { state, dispatch } = useApp();
   const isMobile = useIsMobile();
   const searchRef = useRef(null);
@@ -25,10 +25,14 @@ export function AppShell({ children, onAddClient, onAddClientManual }) {
       if (e.key === 'n' && !e.metaKey && !e.ctrlKey) {
         onAddClient?.();
       }
+      if (e.key === '?' && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault();
+        onShowShortcuts?.();
+      }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [onAddClient]);
+  }, [onAddClient, onShowShortcuts]);
 
   const showSearch = view === 'clients' || view === 'kanban';
 
@@ -56,6 +60,11 @@ export function AppShell({ children, onAddClient, onAddClientManual }) {
             />
           )}
           <div className="app-header__actions">
+            {!isMobile && (
+              <Button variant="ghost" size="sm" icon={Keyboard} onClick={onShowShortcuts} title="Shortcuts (?)">
+                Shortcuts
+              </Button>
+            )}
             {!isMobile && onAddClientManual && (
               <Button variant="ghost" size="sm" icon={PenLine} onClick={onAddClientManual}>
                 Blank client

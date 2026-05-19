@@ -6,11 +6,13 @@ import { ClientList } from './components/clients/ClientList';
 import { KanbanBoard } from './components/kanban/KanbanBoard';
 import { Settings } from './components/settings/Settings';
 import { QuickAddModal } from './components/clients/QuickAddModal';
+import { ShortcutsModal } from './components/ui/ShortcutsModal';
 import { createEmptyClient } from './lib/defaults';
 
 function AppContent() {
   const { state, dispatch, showToast } = useApp();
   const [quickAddOpen, setQuickAddOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const view = state.ui.view;
 
   const onAddClientManual = () => {
@@ -41,10 +43,12 @@ function AppContent() {
       <AppShell
         onAddClient={() => setQuickAddOpen(true)}
         onAddClientManual={onAddClientManual}
+        onShowShortcuts={() => setShortcutsOpen(true)}
       >
         {renderView()}
       </AppShell>
       <QuickAddModal open={quickAddOpen} onClose={() => setQuickAddOpen(false)} />
+      <ShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
     </>
   );
 }
