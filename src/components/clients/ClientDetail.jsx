@@ -24,6 +24,7 @@ export function ClientDetail({ clientId, onClose }) {
   const client = getClient(clientId);
   const [noteText, setNoteText] = useState('');
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [activityFilter, setActivityFilter] = useState('all');
 
   if (!client) return null;
 
@@ -167,7 +168,19 @@ export function ClientDetail({ clientId, onClose }) {
       ))}
 
       <section className="client-detail__section client-detail__activity">
-        <h4>Activity</h4>
+        <div className="client-detail__activity-head">
+          <h4>Activity</h4>
+          <select
+            value={activityFilter}
+            onChange={(e) => setActivityFilter(e.target.value)}
+            className="client-detail__activity-filter"
+            aria-label="Filter activity"
+          >
+            <option value="all">All</option>
+            <option value="note">Notes</option>
+            <option value="stage">Stage changes</option>
+          </select>
+        </div>
         <div className="client-detail__note-form">
           <textarea
             value={noteText}
@@ -180,14 +193,19 @@ export function ClientDetail({ clientId, onClose }) {
           </Button>
         </div>
         <ul className="activity-list">
-          {(client.activities || []).map((a) => (
+          {(client.activities || [])
+            .filter((a) => activityFilter === 'all' || a.type === activityFilter)
+            .map((a) => (
             <li key={a.id} className={`activity-list__item activity-list__item--${a.type}`}>
               <span className="activity-list__text">{a.text}</span>
               <span className="activity-list__time">{formatRelative(a.at)}</span>
             </li>
           ))}
-          {!client.activities?.length && (
-            <li className="activity-list__empty">No activity yet</li>
+          {!client.activities?.filter((a) => activityFilter === 'all' || a.type === activityFilter)
+            .length && (
+            <li className="activity-list__empty">
+              {client.activities?.length ? 'No matching activity' : 'No activity yet'}
+            </li>
           )}
         </ul>
       </section>
