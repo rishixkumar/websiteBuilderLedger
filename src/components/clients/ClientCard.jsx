@@ -2,9 +2,10 @@ import { Star, ExternalLink, MapPin, Copy, Clock } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { Badge } from '../ui/Badge';
 import { formatDateTime, isCallOverdue, isCallUpcoming } from '../../lib/utils';
+import { HighlightText } from '../ui/HighlightText';
 import './ClientCard.css';
 
-export function ClientCard({ client, onClick, compact }) {
+export function ClientCard({ client, onClick, compact, searchQuery = '' }) {
   const { getStage, dispatch, showToast } = useApp();
   const stage = getStage(client.stageId);
   const website = client.fields?.website;
@@ -40,7 +41,9 @@ export function ClientCard({ client, onClick, compact }) {
     >
       <div className="client-card__header">
         <div className="client-card__title-row">
-          <h3>{client.name || 'Untitled client'}</h3>
+          <h3>
+            <HighlightText text={client.name || 'Untitled client'} query={searchQuery} />
+          </h3>
           <button
             type="button"
             className={`client-card__star ${client.starred ? 'client-card__star--on' : ''}`}

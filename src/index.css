@@ -100,6 +100,13 @@ textarea {
   min-height: 80px;
 }
 
+.highlight-text {
+  background: var(--accent-muted);
+  color: var(--accent);
+  padding: 0 0.1em;
+  border-radius: 2px;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

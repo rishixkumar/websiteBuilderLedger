@@ -125,6 +125,7 @@ export function ClientList({ onAddClient }) {
               <ClientCard
                 key={c.id}
                 client={c}
+                searchQuery={search}
                 onClick={() => openClient(c.id)}
                 compact={showDetailPanel}
               />
