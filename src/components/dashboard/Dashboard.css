@@ -9,15 +9,54 @@
   margin-bottom: 1.5rem;
 }
 
+.dashboard__date {
+  font-size: 0.8125rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.35rem;
+  font-family: var(--font-sans);
+}
+
 .dashboard__hero h1 {
   font-size: 1.75rem;
   margin-bottom: 0.25rem;
 }
 
-.dashboard__hero p {
+.dashboard__subtitle {
   color: var(--text-secondary);
-  margin: 0;
+  margin: 0 0 1rem;
   font-size: 0.9375rem;
+}
+
+.dashboard__progress {
+  max-width: 360px;
+}
+
+.dashboard__progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.35rem;
+}
+
+.dashboard__progress-label strong {
+  color: var(--accent);
+}
+
+.dashboard__progress-bar {
+  height: 6px;
+  background: var(--bg-elevated);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.dashboard__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  border-radius: 999px;
+  transition: width 0.4s ease;
 }
 
 .dashboard__stats {

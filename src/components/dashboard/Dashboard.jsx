@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Calendar, Star, AlertCircle, TrendingUp } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { formatDateTime, isCallOverdue, isCallUpcoming, formatRelative } from '../../lib/utils';
+import { getGreeting, getTodayLabel, getPipelineProgress } from '../../lib/greeting';
 import { ClientCard } from '../clients/ClientCard';
 import { Badge } from '../ui/Badge';
 import './Dashboard.css';
@@ -45,6 +46,11 @@ export function Dashboard({ onSelectClient }) {
     [clients]
   );
 
+  const pipelineProgress = useMemo(
+    () => getPipelineProgress(clients, settings.pipelineStages),
+    [clients, settings.pipelineStages]
+  );
+
   const openClient = (id) => {
     dispatch({ type: 'SELECT_CLIENT', id });
     dispatch({ type: 'SET_VIEW', view: 'clients' });
@@ -54,8 +60,23 @@ export function Dashboard({ onSelectClient }) {
   return (
     <div className="dashboard">
       <header className="dashboard__hero">
-        <h1>Dashboard</h1>
-        <p>Your website projects at a glance</p>
+        <p className="dashboard__date">{getTodayLabel()}</p>
+        <h1>{getGreeting()}</h1>
+        <p className="dashboard__subtitle">Your website projects at a glance</p>
+        {stats.total > 0 && (
+          <div className="dashboard__progress">
+            <div className="dashboard__progress-label">
+              <span>Pipeline progress</span>
+              <strong>{pipelineProgress}%</strong>
+            </div>
+            <div className="dashboard__progress-bar">
+              <div
+                className="dashboard__progress-fill"
+                style={{ width: `${pipelineProgress}%` }}
+              />
+            </div>
+          </div>
+        )}
       </header>
 
       <div className="dashboard__stats">

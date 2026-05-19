@@ -187,6 +187,15 @@ export function ClientDetail({ clientId, onClose }) {
         >
           Duplicate
         </Button>
+        {client.archived ? (
+          <Button variant="secondary" size="sm" icon={ArchiveRestore} onClick={handleRestore}>
+            Restore
+          </Button>
+        ) : (
+          <Button variant="ghost" size="sm" icon={Archive} onClick={handleArchive}>
+            Archive
+          </Button>
+        )}
         <Button variant="danger" size="sm" icon={Trash2} onClick={() => setDeleteOpen(true)}>
           Delete
         </Button>
