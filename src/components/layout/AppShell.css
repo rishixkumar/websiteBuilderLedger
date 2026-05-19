@@ -52,6 +52,27 @@
   flex-direction: column;
 }
 
+.app-main > * {
+  animation: viewFadeIn 0.2s ease;
+}
+
+@keyframes viewFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-main > * {
+    animation: none;
+  }
+}
+
 @media (max-width: 768px) {
   .app-header {
     flex-wrap: wrap;
