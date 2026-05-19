@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { Plus } from 'lucide-react';
+import { Sparkles, PenLine } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { Sidebar } from './Sidebar';
@@ -7,10 +7,9 @@ import { MobileNav } from './MobileNav';
 import { SearchBar } from '../ui/SearchBar';
 import { Toast } from '../ui/Toast';
 import { Button } from '../ui/Button';
-import { createEmptyClient } from '../../lib/defaults';
 import './AppShell.css';
 
-export function AppShell({ children, onAddClient }) {
+export function AppShell({ children, onAddClient, onAddClientManual }) {
   const { state, dispatch } = useApp();
   const isMobile = useIsMobile();
   const searchRef = useRef(null);
@@ -57,8 +56,13 @@ export function AppShell({ children, onAddClient }) {
             />
           )}
           <div className="app-header__actions">
-            <Button variant="primary" size="sm" icon={Plus} onClick={onAddClient}>
-              {isMobile ? 'Add' : 'Add client'}
+            {!isMobile && onAddClientManual && (
+              <Button variant="ghost" size="sm" icon={PenLine} onClick={onAddClientManual}>
+                Blank client
+              </Button>
+            )}
+            <Button variant="primary" size="sm" icon={Sparkles} onClick={onAddClient}>
+              {isMobile ? 'Quick add' : 'Quick add'}
             </Button>
           </div>
         </header>
@@ -70,15 +74,4 @@ export function AppShell({ children, onAddClient }) {
       <Toast message={toast?.message} type={toast?.type} />
     </div>
   );
-}
-
-export function useQuickAddClient() {
-  const { dispatch, showToast } = useApp();
-  return () => {
-    const client = createEmptyClient('lead');
-    client.name = 'New Client';
-    dispatch({ type: 'ADD_CLIENT', client });
-    dispatch({ type: 'SET_VIEW', view: 'clients' });
-    showToast('Client created — edit the name below');
-  };
 }
