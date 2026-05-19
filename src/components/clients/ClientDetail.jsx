@@ -6,6 +6,8 @@ import {
   Trash2,
   CopyPlus,
   MessageSquarePlus,
+  Archive,
+  ArchiveRestore,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { groupFieldsBySection } from '../../lib/utils';
@@ -57,8 +59,19 @@ export function ClientDetail({ clientId, onClose }) {
 
   const handleDelete = () => {
     dispatch({ type: 'DELETE_CLIENT', id: client.id });
-    showToast('Client deleted');
+    showToast('Client deleted permanently');
     onClose?.();
+  };
+
+  const handleArchive = () => {
+    dispatch({ type: 'ARCHIVE_CLIENT', id: client.id });
+    showToast('Client archived');
+    onClose?.();
+  };
+
+  const handleRestore = () => {
+    dispatch({ type: 'RESTORE_CLIENT', id: client.id });
+    showToast('Client restored');
   };
 
   return (

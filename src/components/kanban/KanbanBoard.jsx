@@ -22,7 +22,10 @@ export function KanbanBoard() {
   const { search } = state.ui;
 
   const clients = useMemo(
-    () => searchClients(state.clients, search, state.settings.fieldDefinitions),
+    () =>
+      searchClients(state.clients, search, state.settings.fieldDefinitions).filter(
+        (c) => !c.archived
+      ),
     [state.clients, search, state.settings.fieldDefinitions]
   );
 

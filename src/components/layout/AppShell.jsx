@@ -61,6 +61,7 @@ export function AppShell({ children, onAddClient, onAddClientManual, onShowShort
             />
           )}
           <div className="app-header__actions">
+            <SaveIndicator status={saveStatus} />
             {!isMobile && (
               <Button variant="ghost" size="sm" icon={Keyboard} onClick={onShowShortcuts} title="Shortcuts (?)">
                 Shortcuts

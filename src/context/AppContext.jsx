@@ -52,6 +52,22 @@ function reducer(state, action) {
       return { ...state, clients, ui: { ...state.ui, selectedClientId } };
     }
 
+    case 'ARCHIVE_CLIENT': {
+      const clients = state.clients.map((c) =>
+        c.id === action.id ? touchClient(c, { archived: true }) : c
+      );
+      const selectedClientId =
+        state.ui.selectedClientId === action.id ? null : state.ui.selectedClientId;
+      return { ...state, clients, ui: { ...state.ui, selectedClientId } };
+    }
+
+    case 'RESTORE_CLIENT': {
+      const clients = state.clients.map((c) =>
+        c.id === action.id ? touchClient(c, { archived: false }) : c
+      );
+      return { ...state, clients };
+    }
+
     case 'DUPLICATE_CLIENT': {
       const source = state.clients.find((c) => c.id === action.id);
       if (!source) return state;
@@ -164,7 +180,7 @@ const initialUI = {
   view: 'dashboard',
   selectedClientId: null,
   search: '',
-  filters: { stageId: '', starred: false, upcomingCall: false },
+  filters: { stageId: '', starred: false, upcomingCall: false, showArchived: false },
   sort: 'updated',
   sidebarCollapsed: false,
   toast: null,

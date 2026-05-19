@@ -32,7 +32,7 @@ export function ClientCard({ client, onClick, compact }) {
 
   return (
     <article
-      className={`client-card ${compact ? 'client-card--compact' : ''} ${overdue ? 'client-card--overdue' : ''}`}
+      className={`client-card ${compact ? 'client-card--compact' : ''} ${overdue ? 'client-card--overdue' : ''} ${client.archived ? 'client-card--archived' : ''}`}
       onClick={onClick}
       role="button"
       tabIndex={0}

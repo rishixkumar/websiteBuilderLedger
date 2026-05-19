@@ -32,6 +32,8 @@ function sortClients(clients, sort) {
 
 function filterClients(clients, filters) {
   return clients.filter((c) => {
+    const archived = !!c.archived;
+    if (filters.showArchived ? !archived : archived) return false;
     if (filters.stageId && c.stageId !== filters.stageId) return false;
     if (filters.starred && !c.starred) return false;
     if (filters.upcomingCall && !isCallUpcoming(c.fields?.nextCall)) return false;
@@ -95,6 +97,14 @@ export function ClientList({ onAddClient }) {
               onChange={(e) => dispatch({ type: 'SET_FILTERS', filters: { upcomingCall: e.target.checked } })}
             />
             Upcoming calls
+          </label>
+          <label className="client-list-toolbar__check">
+            <input
+              type="checkbox"
+              checked={filters.showArchived}
+              onChange={(e) => dispatch({ type: 'SET_FILTERS', filters: { showArchived: e.target.checked } })}
+            />
+            Archived
           </label>
         </div>
 

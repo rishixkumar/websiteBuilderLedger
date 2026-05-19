@@ -8,6 +8,7 @@ export function loadWorkspace() {
     if (!raw) return createDefaultWorkspace();
     const data = JSON.parse(raw);
     if (!data || data.version !== 1) return createDefaultWorkspace();
+    data.clients = (data.clients || []).map((c) => ({ ...c, archived: !!c.archived }));
     return data;
   } catch {
     return createDefaultWorkspace();

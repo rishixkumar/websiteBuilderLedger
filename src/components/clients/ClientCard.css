@@ -16,6 +16,10 @@
   border-color: color-mix(in srgb, var(--danger) 40%, var(--border));
 }
 
+.client-card--archived {
+  opacity: 0.65;
+}
+
 .client-card__header {
   margin-bottom: 0.5rem;
 }

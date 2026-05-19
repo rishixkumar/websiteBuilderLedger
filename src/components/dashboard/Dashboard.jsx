@@ -15,29 +15,33 @@ export function Dashboard({ onSelectClient }) {
     for (const s of settings.pipelineStages) {
       byStage[s.id] = 0;
     }
-    for (const c of clients) {
+    for (const c of clients.filter((x) => !x.archived)) {
       if (byStage[c.stageId] != null) byStage[c.stageId]++;
     }
-    return { total: clients.length, byStage };
+    return { total: clients.filter((c) => !c.archived).length, byStage };
   }, [clients, settings.pipelineStages]);
 
   const upcomingCalls = useMemo(
     () =>
       clients
-        .filter((c) => isCallUpcoming(c.fields?.nextCall, 7))
+        .filter((c) => !c.archived && isCallUpcoming(c.fields?.nextCall, 7))
         .sort((a, b) => (a.fields?.nextCall || '').localeCompare(b.fields?.nextCall || '')),
     [clients]
   );
 
   const needsAttention = useMemo(
-    () => clients.filter((c) => isCallOverdue(c.fields?.nextCall)),
+    () => clients.filter((c) => !c.archived && isCallOverdue(c.fields?.nextCall)),
     [clients]
   );
 
-  const starred = useMemo(() => clients.filter((c) => c.starred), [clients]);
+  const starred = useMemo(() => clients.filter((c) => c.starred && !c.archived), [clients]);
 
   const recent = useMemo(
-    () => [...clients].sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || '')).slice(0, 5),
+    () =>
+      [...clients]
+        .filter((c) => !c.archived)
+        .sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''))
+        .slice(0, 5),
     [clients]
   );
 

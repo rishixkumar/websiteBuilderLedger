@@ -91,6 +91,7 @@ export function createEmptyClient(stageId = 'lead') {
     stageId,
     tags: [],
     starred: false,
+    archived: false,
     fields: {},
     activities: [],
     createdAt: now,
