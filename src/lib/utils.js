@@ -61,6 +61,21 @@ export function searchClients(clients, query, fieldDefs) {
   });
 }
 
+export function formatClientSummary(client, fieldDefs, stageLabel) {
+  const lines = [`# ${client.name || 'Untitled client'}`, `Stage: ${stageLabel || client.stageId}`];
+  if (client.tags?.length) lines.push(`Tags: ${client.tags.join(', ')}`);
+  lines.push('');
+  for (const f of [...fieldDefs].sort((a, b) => a.order - b.order)) {
+    const v = client.fields?.[f.id];
+    if (v) lines.push(`${f.label}: ${v}`);
+  }
+  if (client.activities?.length) {
+    lines.push('', 'Recent activity:');
+    client.activities.slice(0, 5).forEach((a) => lines.push(`- ${a.text}`));
+  }
+  return lines.join('\n');
+}
+
 export function groupFieldsBySection(fieldDefs) {
   const sections = {};
   const sorted = [...fieldDefs].sort((a, b) => a.order - b.order);

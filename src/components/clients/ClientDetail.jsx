@@ -3,6 +3,7 @@ import {
   ExternalLink,
   MapPin,
   Copy,
+  ClipboardCopy,
   Trash2,
   CopyPlus,
   MessageSquarePlus,
@@ -10,7 +11,7 @@ import {
   ArchiveRestore,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
-import { groupFieldsBySection } from '../../lib/utils';
+import { groupFieldsBySection, formatClientSummary } from '../../lib/utils';
 import { FieldInput } from './FieldInput';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
@@ -98,6 +99,22 @@ export function ClientDetail({ clientId, onClose }) {
       </div>
 
       <div className="client-detail__quick">
+        <Button
+          variant="secondary"
+          size="sm"
+          icon={ClipboardCopy}
+          onClick={() => {
+            const summary = formatClientSummary(
+              client,
+              state.settings.fieldDefinitions,
+              stage?.label
+            );
+            navigator.clipboard.writeText(summary);
+            showToast('Client summary copied');
+          }}
+        >
+          Copy summary
+        </Button>
         {client.fields?.website && (
           <Button variant="secondary" size="sm" icon={ExternalLink} onClick={() => quickOpen(client.fields.website)}>
             Website
