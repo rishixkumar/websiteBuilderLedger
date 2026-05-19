@@ -152,6 +152,9 @@ function reducer(state, action) {
     case 'HIDE_TOAST':
       return { ...state, ui: { ...state.ui, toast: null } };
 
+    case 'SET_SAVE_STATUS':
+      return { ...state, ui: { ...state.ui, saveStatus: action.status } };
+
     default:
       return state;
   }
@@ -165,6 +168,7 @@ const initialUI = {
   sort: 'updated',
   sidebarCollapsed: false,
   toast: null,
+  saveStatus: 'saved',
 };
 
 function initState() {
@@ -178,8 +182,11 @@ export function AppProvider({ children }) {
   stateRef.current = state;
 
   useEffect(() => {
+    dispatch({ type: 'SET_SAVE_STATUS', status: 'saving' });
     const { ui, ...workspace } = stateRef.current;
-    debouncedSave(workspace);
+    debouncedSave(workspace).then((ok) => {
+      dispatch({ type: 'SET_SAVE_STATUS', status: ok ? 'saved' : 'error' });
+    });
   }, [state.clients, state.settings, state.version]);
 
   useEffect(() => {

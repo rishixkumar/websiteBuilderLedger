@@ -32,3 +32,7 @@ export function debouncedSave(workspace, delay = 400) {
     }, delay);
   });
 }
+
+export function saveWorkspaceSync(workspace) {
+  return saveWorkspace(workspace);
+}

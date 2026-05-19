@@ -6,6 +6,7 @@ import { Sidebar } from './Sidebar';
 import { MobileNav } from './MobileNav';
 import { SearchBar } from '../ui/SearchBar';
 import { Toast } from '../ui/Toast';
+import { SaveIndicator } from '../ui/SaveIndicator';
 import { Button } from '../ui/Button';
 import './AppShell.css';
 
@@ -13,7 +14,7 @@ export function AppShell({ children, onAddClient, onAddClientManual, onShowShort
   const { state, dispatch } = useApp();
   const isMobile = useIsMobile();
   const searchRef = useRef(null);
-  const { view, search, sidebarCollapsed, toast } = state.ui;
+  const { view, search, sidebarCollapsed, toast, saveStatus } = state.ui;
 
   useEffect(() => {
     const handler = (e) => {
