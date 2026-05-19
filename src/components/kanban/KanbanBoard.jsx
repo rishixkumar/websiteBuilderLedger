@@ -9,6 +9,7 @@ import {
 } from '@dnd-kit/core';
 import { useState } from 'react';
 import { useApp } from '../../context/AppContext';
+import { createEmptyClient } from '../../lib/defaults';
 import { searchClients } from '../../lib/utils';
 import { KanbanColumn } from './KanbanColumn';
 import { ClientCard } from '../clients/ClientCard';
@@ -17,7 +18,7 @@ import { Columns3 } from 'lucide-react';
 import './KanbanBoard.css';
 
 export function KanbanBoard() {
-  const { state, dispatch } = useApp();
+  const { state, dispatch, showToast } = useApp();
   const [activeId, setActiveId] = useState(null);
   const { search } = state.ui;
 
@@ -100,6 +101,14 @@ export function KanbanBoard() {
             onSelectClient={(id) => {
               dispatch({ type: 'SELECT_CLIENT', id });
               dispatch({ type: 'SET_VIEW', view: 'clients' });
+            }}
+            onAddToStage={(stageId) => {
+              const client = createEmptyClient(stageId);
+              client.name = 'New Client';
+              dispatch({ type: 'ADD_CLIENT', client });
+              dispatch({ type: 'SELECT_CLIENT', id: client.id });
+              dispatch({ type: 'SET_VIEW', view: 'clients' });
+              showToast(`Client added to ${stages.find((s) => s.id === stageId)?.label}`);
             }}
           />
         ))}
