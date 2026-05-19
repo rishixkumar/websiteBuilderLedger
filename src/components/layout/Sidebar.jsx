@@ -15,7 +15,7 @@ const NAV = [
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 
-export function Sidebar({ view, onNavigate, collapsed, onToggleCollapse }) {
+export function Sidebar({ view, onNavigate, collapsed, onToggleCollapse, clientCount = 0 }) {
   return (
     <aside className={`sidebar ${collapsed ? 'sidebar--collapsed' : ''}`}>
       <div className="sidebar__brand">
@@ -45,6 +45,9 @@ export function Sidebar({ view, onNavigate, collapsed, onToggleCollapse }) {
           >
             <Icon size={20} />
             {!collapsed && <span>{label}</span>}
+            {!collapsed && id === 'clients' && clientCount > 0 && (
+              <span className="sidebar__badge">{clientCount}</span>
+            )}
           </button>
         ))}
       </nav>

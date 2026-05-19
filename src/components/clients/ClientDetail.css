@@ -60,6 +60,23 @@
   margin: 0 0 0.75rem;
 }
 
+.client-detail__activity-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.client-detail__activity-head h4 {
+  margin: 0;
+}
+
+.client-detail__activity-filter {
+  width: auto;
+  min-width: 130px;
+  font-size: 0.8125rem;
+}
+
 .client-detail__note-form {
   display: flex;
   flex-direction: column;

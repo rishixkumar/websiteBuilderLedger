@@ -45,6 +45,7 @@ export function AppShell({ children, onAddClient, onAddClientManual, onShowShort
           onNavigate={(v) => dispatch({ type: 'SET_VIEW', view: v })}
           collapsed={sidebarCollapsed}
           onToggleCollapse={() => dispatch({ type: 'TOGGLE_SIDEBAR' })}
+          clientCount={state.clients.filter((c) => !c.archived).length}
         />
       )}
       <div className="app-shell__main">
